@@ -24,7 +24,11 @@ if [[ (! -z "$DEPENDENCY_PRODUCT_TILES") && ("null" != "$DEPENDENCY_PRODUCT_TILE
   done
 fi
 
-VERSION=`cat pivnet-product/metadata.json | jq '.Release.Version' | tr -d '"'`
+if [[ -f pivnet-product/metadata.json ]]; then
+  VERSION=`cat pivnet-product/metadata.json | jq '.Release.Version' | tr -d '"'`
+else
+  VERSION=`cat pivnet-product/version`
+fi
 
 RELEASE_NAME=`$CMD -t https://$OPS_MGR_HOST -u $OPS_MGR_USR -p $OPS_MGR_PWD -k available-products | grep $PRODUCT_NAME | grep $VERSION`
 
