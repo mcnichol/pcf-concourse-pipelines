@@ -91,7 +91,7 @@ function echoNetworkTemplate() {
 CURL_CMD="$OM_CMD -k -t $OPS_MGR_HOST -u $OPS_MGR_USR -p $OPS_MGR_PWD curl -s -p"
 
 PRODUCTS=$($CURL_CMD /api/v0/staged/products)
-PRODUCT_GUID=$(echo $PRODUCTS | $JQ_CMD -r --arg product_identifier $PRODUCT_NAME: '.[] | select(.type == $product_identifier) | .guid')
+PRODUCT_GUID=$(echo $PRODUCTS | $JQ_CMD -r --arg product_identifier $PRODUCT_NAME '.[] | select(.type == $product_identifier) | .guid')
 
 ## Download the product properties
 
